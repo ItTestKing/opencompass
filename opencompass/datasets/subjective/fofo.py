@@ -5,6 +5,7 @@ import os.path as osp
 from datasets import Dataset
 
 from opencompass.registry import LOAD_DATASET
+from opencompass.utils import get_data_path
 
 from ..base import BaseDataset
 
@@ -12,7 +13,8 @@ from ..base import BaseDataset
 @LOAD_DATASET.register_module()
 class FofoDataset(BaseDataset):
 
-    def load(self, path: str, name: str):
+    def load(self, path: str, name: str, *args, **kwargs):
+        path = get_data_path(path, local_mode=True)
         filename = osp.join(path, f'{name}.json')
         raw_data = []
         with open(filename, 'r', encoding='utf-8') as f:

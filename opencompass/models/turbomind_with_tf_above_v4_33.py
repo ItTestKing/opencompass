@@ -72,12 +72,19 @@ class TurboMindModelwithChatTemplate(BaseModel):
         potential_stop_words = []
         try:
             generation_config = GenerationConfig.from_pretrained(path)
-            for token_id in generation_config.eos_token_id:
-                potential_stop_words.append(self.origin_tokenizer.decode(token_id))
         except:
-            pass
-        potential_stop_words.append(self.origin_tokenizer.eos_token)
+            generation_config = None
+        if generation_config and hasattr(generation_config, 'eos_token_id'):
+            if isinstance(generation_config.eos_token_id, int):
+                potential_stop_words.append(self.origin_tokenizer.decode(generation_config.eos_token_id))
+            else:
+                assert isinstance(generation_config.eos_token_id, list)
+                for token_id in generation_config.eos_token_id:
+                    potential_stop_words.append(self.origin_tokenizer.decode(token_id))
+        if self.origin_tokenizer.eos_token is not None:
+            potential_stop_words.append(self.origin_tokenizer.eos_token)
         potential_stop_words = list(set(potential_stop_words))
+        potential_stop_words = [s for s in potential_stop_words if s]
         return potential_stop_words
 
     def generate(self,
@@ -108,26 +115,29 @@ class TurboMindModelwithChatTemplate(BaseModel):
         batch_messages = [messages[i:i + self.concurrency] for i in range(0, len(messages), self.concurrency)]
 
         stop_words = list(set(self.stop_words + stopping_criteria))
+        encode_stop_words = []
+        if stop_words is not None and len(stop_words) > 0:
+            for words in stop_words:
+                encode_stop_words += self.tokenizer.encode(words, add_bos=False)
+
         DEFAULT_GEN_CONFIG = {
             'max_new_tokens': max_out_len,
             'min_new_tokens': 1,
             'top_k': 1,
-            'stop_words': stop_words,
+            'stop_words': encode_stop_words,
         }
+
         gen_config = copy.deepcopy(DEFAULT_GEN_CONFIG)
         gen_config.update(self.gen_config)
         if do_sample:
             gen_config['top_k'] = 1000
             gen_config['temperature'] = temperature
-        # if stopping_criteria:
-        #     stop_words = gen_config.get('stop_words', [])
-        #     for t in stopping_criteria:
-        #         t = self.tokenizer.encode(t, add_bos=False)
-        #         stop_words.append(t[0])
-        #     gen_config['stop_words'] = list(set(stop_words))
-        from lmdeploy.messages import EngineGenerationConfig, GenerationConfig
+
+        from lmdeploy.messages import GenerationConfig
         gen_config = GenerationConfig(**gen_config)
-        gen_config = EngineGenerationConfig.From(gen_config, self.tokenizer)
+        if self.version_info >= (0, 6, 0):
+            gen_config.stop_words = stop_words
+            gen_config.convert_stop_bad_words_to_ids(self.tokenizer)
 
         results = []
         for batch_message in batch_messages:
@@ -158,14 +168,14 @@ class TurboMindModelwithChatTemplate(BaseModel):
             prompt (PromptType): A string or PromptDict.
                 The PromptDict should be organized in OpenCompass'
                 API format.
-            gen_config (EngineGenerationConfig, optional): Generation
+            gen_config (GenerationConfig, optional): Generation
                 config to set arguments like top_k, top_p, temperature.
         Returns:
             str: The generated string.
         """
         assert type(prompt) is str, 'We only support string for TurboMind Python API'
 
-        input_ids = self.tokenizer.encode(prompt)
+        input_ids = self.tokenizer.encode(prompt, add_bos=False)
         for outputs in generator.stream_infer(session_id=session_id,
                                               input_ids=[input_ids],
                                               gen_config=gen_config,
