@@ -12,13 +12,14 @@ with read_base():
     from ..datasets.gsm8k.gsm8k_gen_1d7fe4 import gsm8k_datasets
 
 datasets = [
-    *gsm8k_datasets,
-    kk
+    {"path": "data/clouditera/fuzz.jsonl", "data_type": "mcq", "infer_method": "gen"}
+    # *gsm8k_datasets,
+
 ]
 
 models = [
     dict(
-       # abbr='SecGPT',
+        # abbr='SecGPT',
         abbr='diaoyu',
         type=MyOpenAI,
         path='SecGPT',
@@ -43,6 +44,6 @@ infer = dict(
 )
 
 work_dir = 'outputs/api_SecGPT/'
-summarizer = dict(
-    type=MultiroundSummarizer
-)
+# summarizer = dict(
+#     type=MultiroundSummarizer
+# )
