@@ -13,6 +13,7 @@ with read_base():
 
 datasets = [
     *gsm8k_datasets,
+    kk
 ]
 
 models = [
