@@ -13,7 +13,6 @@ configs/eval_debug*.py
 configs/viz_*.py
 configs/**/*_bkup.py
 opencompass/**/*_bkup.py
-data
 work_dirs
 outputs
 models/*

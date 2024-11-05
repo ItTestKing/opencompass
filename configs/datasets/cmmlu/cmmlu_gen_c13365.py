@@ -1,10 +1,9 @@
 from opencompass.openicl.icl_prompt_template import PromptTemplate
 from opencompass.openicl.icl_retriever import FixKRetriever
 from opencompass.openicl.icl_inferencer import GenInferencer
-from opencompass.openicl.icl_evaluator import AccwithDetailsEvaluator
+from opencompass.openicl.icl_evaluator import AccEvaluator
 from opencompass.datasets import CMMLUDataset
 from opencompass.utils.text_postprocessors import first_capital_postprocess
-
 
 cmmlu_subject_mapping = {
     'agronomy': '农学',
@@ -102,13 +101,13 @@ for _name in cmmlu_all_sets:
     )
 
     cmmlu_eval_cfg = dict(
-        evaluator=dict(type=AccwithDetailsEvaluator),
+        evaluator=dict(type=AccEvaluator),
         pred_postprocessor=dict(type=first_capital_postprocess))
 
     cmmlu_datasets.append(
         dict(
             type=CMMLUDataset,
-            path='opencompass/cmmlu',
+            path='./data/cmmlu/',
             name=_name,
             abbr=f'cmmlu-{_name}',
             reader_cfg=dict(

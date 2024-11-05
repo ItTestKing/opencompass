@@ -12,7 +12,7 @@ with read_base():
     from ..datasets.gsm8k.gsm8k_gen_1d7fe4 import gsm8k_datasets
 
 datasets = [
-    {"path": "data/clouditera/fuzz.jsonl", "data_type": "mcq", "infer_method": "gen"}
+    {"path": "data/clouditera/data.jsonl", "data_type": "mcq", "infer_method": "gen"}
     # *gsm8k_datasets,
 
 ]

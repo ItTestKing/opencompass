@@ -221,6 +221,6 @@ def _check_data(ms_dataset: Dataset | DatasetDict,
 
 
 if __name__ == '__main__':
-    sample_size = 100
-    thread = 1
+    # sample_size = 100
+    # thread = 1
     unittest.main()

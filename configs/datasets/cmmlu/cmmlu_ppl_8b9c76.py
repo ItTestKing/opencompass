@@ -107,7 +107,7 @@ for _name in cmmlu_all_sets:
     cmmlu_datasets.append(
         dict(
             type=CMMLUDataset,
-            path='opencompass/cmmlu',
+            path='./data/cmmlu/',
             name=_name,
             abbr=f'cmmlu-{_name}',
             reader_cfg=dict(

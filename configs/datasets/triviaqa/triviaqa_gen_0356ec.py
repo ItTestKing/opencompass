@@ -3,6 +3,7 @@ from opencompass.openicl.icl_retriever import ZeroRetriever, FixKRetriever
 from opencompass.openicl.icl_inferencer import GenInferencer
 from opencompass.datasets import TriviaQADataset, TriviaQAEvaluator
 
+
 triviaqa_datasets = []
 for k in [0, 1, 5]:
     triviaqa_reader_cfg = dict(
@@ -54,7 +55,7 @@ for k in [0, 1, 5]:
         dict(
             type=TriviaQADataset,
             abbr='triviaqa' if k == 0 else f'triviaqa_{k}shot',
-            path='opencompass/trivia_qa',
+            path='./data/triviaqa/',
             reader_cfg=triviaqa_reader_cfg,
             infer_cfg=triviaqa_infer_cfg,
             eval_cfg=triviaqa_eval_cfg)

@@ -3,7 +3,6 @@ from opencompass.openicl.icl_retriever import ZeroRetriever
 from opencompass.openicl.icl_inferencer import GenInferencer
 from opencompass.openicl.icl_evaluator import BleuEvaluator
 from opencompass.datasets import Py150Dataset
-
 from opencompass.utils.text_postprocessors import first_capital_postprocess
 
 

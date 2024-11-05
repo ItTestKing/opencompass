@@ -29,7 +29,7 @@ math_datasets = [
     dict(
         type=MATHDataset,
         abbr='math',
-        path='opencompass/math',
+        path='./data/math/math.json',
         reader_cfg=math_reader_cfg,
         infer_cfg=math_infer_cfg,
         eval_cfg=math_eval_cfg)

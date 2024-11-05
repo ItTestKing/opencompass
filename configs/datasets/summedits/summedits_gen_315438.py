@@ -44,7 +44,7 @@ summedits_datasets = [
     dict(
         abbr='summedits',
         type=SummeditsDataset_V2,
-        path='opencompass/summedits',
+        path='./data/summedits/summedits.jsonl',
         reader_cfg=summedits_reader_cfg,
         infer_cfg=summedits_infer_cfg,
         eval_cfg=summedits_eval_cfg)

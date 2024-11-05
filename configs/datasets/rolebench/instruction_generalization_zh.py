@@ -1,7 +1,7 @@
 from opencompass.openicl.icl_prompt_template import PromptTemplate
 from opencompass.openicl.icl_retriever import ZeroRetriever
 from opencompass.openicl.icl_inferencer import GenInferencer
-from opencompass.openicl.icl_evaluator import JiebaRougeEvaluator
+from opencompass.openicl.icl_evaluator import RougeEvaluator
 from opencompass.datasets.rolebench import InstructionGeneralizationChineseDataset
 
 instruction_generalization_zh_reader_cfg = dict(
@@ -27,13 +27,12 @@ instruction_generalization_zh_infer_cfg = dict(
 )
 
 instruction_generalization_zh_eval_cfg = dict(
-    evaluator=dict(type=JiebaRougeEvaluator),
+    evaluator=dict(type=RougeEvaluator),
     pred_role='BOT'
 )
 
 instruction_generalization_zh_datasets = [
     dict(
-        abbr='RoleBench_instruct_zh',
         type=InstructionGeneralizationChineseDataset,
         path='ZenMoore/RoleBench',
         reader_cfg=instruction_generalization_zh_reader_cfg,

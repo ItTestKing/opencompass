@@ -34,7 +34,7 @@ adv_qnli_datasets = [
     dict(
         abbr='adv_qnli',
         type=AdvQnliDataset,
-        path='opencompass/advglue-dev',
+        path='./data/adv_glue/dev_ann.json',
         reader_cfg=adv_qnli_reader_cfg,
         infer_cfg=adv_qnli_infer_cfg,
         eval_cfg=adv_qnli_eval_cfg,

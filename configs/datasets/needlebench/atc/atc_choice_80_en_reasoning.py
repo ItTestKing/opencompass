@@ -25,8 +25,8 @@ few_shot_prompts = {
 
 # ----------------------- Prompt Settings ----------------------- #
 needle_num_list = list(range(2, 80, 1))
-path = 'opencompass/needlebench'
-file_name = 'names.json'
+names_path = './data/needlebench/names.json'
+
 repeats = 10
 
 # Use Zero-Shot or not
@@ -84,8 +84,7 @@ for _name in list(single_choice_prompts.keys()):
         dataset_dict = {
             'abbr': abbr,
             'type': NeedleBenchATCDataset,
-            'path': path,
-            'file_name': file_name,
+            'path': names_path,
             'num_needles': num_needles,
             'language': language,
             'repeats': repeats,

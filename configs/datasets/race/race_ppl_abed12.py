@@ -1,7 +1,7 @@
 from opencompass.openicl.icl_prompt_template import PromptTemplate
 from opencompass.openicl.icl_retriever import ZeroRetriever
 from opencompass.openicl.icl_inferencer import PPLInferencer
-from opencompass.openicl.icl_evaluator import AccwithDetailsEvaluator
+from opencompass.openicl.icl_evaluator import AccEvaluator
 from opencompass.datasets import RaceDataset
 
 race_reader_cfg = dict(
@@ -20,13 +20,13 @@ race_infer_cfg = dict(
     retriever=dict(type=ZeroRetriever),
     inferencer=dict(type=PPLInferencer))
 
-race_eval_cfg = dict(evaluator=dict(type=AccwithDetailsEvaluator))
+race_eval_cfg = dict(evaluator=dict(type=AccEvaluator))
 
 race_datasets = [
     dict(
         abbr='race-middle',
         type=RaceDataset,
-        path='opencompass/race',
+        path='./data/race',
         name='middle',
         reader_cfg=race_reader_cfg,
         infer_cfg=race_infer_cfg,
@@ -34,7 +34,7 @@ race_datasets = [
     dict(
         abbr='race-high',
         type=RaceDataset,
-        path='opencompass/race',
+        path='./data/race',
         name='high',
         reader_cfg=race_reader_cfg,
         infer_cfg=race_infer_cfg,

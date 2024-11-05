@@ -48,7 +48,7 @@ for name, test_type in settings:
     bbh_datasets.append(
         dict(
             type=BBHDataset,
-            path='opencompass/bbh',
+            path='./data/BBH/data',
             name=name,
             abbr='bbh-' + name,
             reader_cfg=bbh_reader_cfg.copy(),

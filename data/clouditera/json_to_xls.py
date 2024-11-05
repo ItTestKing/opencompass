@@ -43,14 +43,20 @@ def write_to_excel(data, output_file):
 
 
 def parse_txt(file_name):
-
     # 假设你的Excel文件名为output.xlsx
-    excel_file = 'output.xlsx'
+    excel_file = file_name
     output_txt = 'data.txt'
 
     # 读取Excel文件
     df = pd.read_excel(excel_file)
 
+    # 检查必要的列是否存在
+    required_columns = ['Question', 'A', 'B', 'C', 'D', 'Answer']
+    if not all(column in df.columns for column in required_columns):
+        print("Error: One or more required columns are missing in the Excel file.")
+        return
+    # 将所有的NaN值替换为空字符串
+    df = df.fillna('')
     # 打开一个新的文本文件准备写入
     with open(output_txt, 'w') as txt_file:
         # 遍历DataFrame中的每一行
@@ -58,10 +64,10 @@ def parse_txt(file_name):
             # 创建一个字典来存储当前行的数据
             data = {
                 'question': row['Question'],
-                'A': row['Options'].split(',')[0],
-                'B': row['Options'].split(',')[1],
-                'C': row['Options'].split(',')[2],
-                'D': row['Options'].split(',')[3],
+                'A': row['A'],
+                'B': row['B'],
+                'C': row['C'],
+                'D': row['D'],
                 'answer': row['Answer']
             }
             # 将字典转换为JSON字符串
@@ -70,7 +76,9 @@ def parse_txt(file_name):
             txt_file.write(json_str + '\n')
 
     print(f'Data has been written to {output_txt}')
+
+
 if __name__ == '__main__':
-    data=parse_jsonl('fuzz.jsonl')
-    write_to_excel(data, 'fuzz2.xlsx')
-  #  parse_txt('output.xlsx')
+    # data=parse_jsonl('fuzz.jsonl')
+    # write_to_excel(data, 'fuzz2.xlsx')
+   parse_txt('fuzz2.xlsx')

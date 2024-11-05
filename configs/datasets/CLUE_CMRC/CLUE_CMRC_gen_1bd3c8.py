@@ -28,7 +28,7 @@ CMRC_datasets = [
     dict(
         type=CMRCDataset,
         abbr='CMRC_dev',
-        path='opencompass/cmrc_dev',
+        path='./data/CLUE/CMRC/dev.json',
         reader_cfg=CMRC_reader_cfg,
         infer_cfg=CMRC_infer_cfg,
         eval_cfg=CMRC_eval_cfg),

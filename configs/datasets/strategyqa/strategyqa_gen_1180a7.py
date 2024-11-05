@@ -87,7 +87,7 @@ strategyqa_datasets = [
     dict(
         abbr='strategyqa',
         type=StrategyQADataset,
-        path='opencompass/strategy_qa',
+        path='./data/strategyqa/strategyQA_train.json',
         reader_cfg=strategyqa_reader_cfg,
         infer_cfg=strategyqa_infer_cfg,
         eval_cfg=strategyqa_eval_cfg)

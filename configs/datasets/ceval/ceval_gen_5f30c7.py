@@ -5,7 +5,6 @@ from opencompass.openicl.icl_evaluator import AccEvaluator
 from opencompass.datasets import CEvalDataset
 from opencompass.utils.text_postprocessors import first_capital_postprocess
 
-
 ceval_subject_mapping = {
     'computer_network': ['Computer Network', '计算机网络', 'STEM'],
     'operating_system': ['Operating System', '操作系统', 'STEM'],
@@ -92,7 +91,7 @@ for _split in ['val']:
         ceval_datasets.append(
             dict(
                 type=CEvalDataset,
-                path='opencompass/ceval-exam',
+                path='./data/ceval/formal_ceval',
                 name=_name,
                 abbr='ceval-' + _name if _split == 'val' else 'ceval-test-' +
                 _name,

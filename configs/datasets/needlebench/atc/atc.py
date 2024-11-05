@@ -31,9 +31,7 @@ needlebench_eval_cfg = dict(
 needle_num_list = list(range(2, 100, 3))
 document_depth_percent_intervals = 20
 repeats = 30
-
-path = 'opencompass/needlebench'
-file_name = 'names.json'
+names_path = './data/needlebench/names.json'
 
 needlebench_atc_datasets_zh = []
 needlebench_atc_datasets_en = []
@@ -46,8 +44,7 @@ for num_needles in needle_num_list:
         'abbr': f'needlebench_atc_challenge'
                 f'needle_{num_needles}_en_ordered',
         'type': NeedleBenchATCOrderedDataset,
-        'path': path,
-        'file_name': file_name,
+        'path': names_path,
         'num_needles': num_needles,
         'language': 'English',
         'repeats': repeats,
@@ -64,8 +61,7 @@ for num_needles in needle_num_list:
         'abbr': f'needlebench_atc_challenge'
                 f'needle_{num_needles}_zh_ordered',
         'type': NeedleBenchATCOrderedDataset,
-        'path': path,
-        'file_name': file_name,
+        'path': names_path,
         'num_needles': num_needles,
         'language': 'Chinese',
         'repeats': repeats,
@@ -81,8 +77,7 @@ for num_needles in needle_num_list:
         'abbr': f'needlebench_atc_challenge'
                 f'needle_{num_needles}_en',
         'type': NeedleBenchATCDataset,
-        'path': path,
-        'file_name': file_name,
+        'path': names_path,
         'num_needles': num_needles,
         'language': 'English',
         'repeats': repeats,
@@ -98,8 +93,7 @@ for num_needles in needle_num_list:
         'abbr': f'needlebench_atc_challenge'
                 f'needle_{num_needles}_zh',
         'type': NeedleBenchATCDataset,
-        'path': path,
-        'file_name': file_name,
+        'path': names_path,
         'num_needles': num_needles,
         'language': 'Chinese',
         'repeats': repeats,
